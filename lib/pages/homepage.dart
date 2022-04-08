@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
+import '../widgets/trending.dart';
+
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
 
@@ -10,6 +12,8 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   List trendingmovies = [];
+  List topratedmovies = [];
+  List tv = [];
   //from the api site https://www.themoviedb.org/settings/api
   final String apikey = 'e27480d6b3883c7ce5f4e315d96af9a0';
   final apitoken =
@@ -28,21 +32,37 @@ class _HomepageState extends State<Homepage> {
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
     Map trendingresult = await tmdbinfo.v3.trending.getTrending();
-    print(trendingresult);
+    Map topratedresult = await tmdbinfo.v3.movies.getTopRated();
+    Map tvresult = await tmdbinfo.v3.tv.getPopular();
+    // print(trendingresult);
+
+    setState(() {
+      trendingmovies = trendingresult['results'];
+      topratedmovies = topratedresult['results'];
+      tv = tvresult['results'];
+    });
+    print(trendingmovies);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text(
-          'TMDB Movies',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+        title: const Text('TMDB Movies',
+            style: TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold)),
+      ),
+      body: ListView(
+        children: [
+          Trendingmovies(
+            trending: trendingmovies,
           ),
-        ),
+        ],
       ),
     );
   }
