@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../pages/description.dart';
 
-class TV extends StatelessWidget {
-  final List tvshows;
-  const TV({
+class UpcomingMovies extends StatelessWidget {
+  final List upcoming;
+  const UpcomingMovies({
     Key? key,
-    required this.tvshows,
+    required this.upcoming,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class TV extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text(
-            'Popular TV shows 🎥',
+            'Upcoming Movies 🎬',
             style: TextStyle(
                 fontSize: 22.0,
                 color: Colors.white,
@@ -25,10 +25,10 @@ class TV extends StatelessWidget {
             height: 10.0,
           ),
           Container(
-            height: 260,
+            height: 265,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: tvshows.length,
+                itemCount: upcoming.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -36,15 +36,15 @@ class TV extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Description(
-                                  name: tvshows[index]['title'].toString(),
-                                  description: tvshows[index]['overview'],
+                                  name: upcoming[index]['title'].toString(),
+                                  description: upcoming[index]['overview'],
                                   bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tvshows[index]['backdrop_path'],
+                                      upcoming[index]['backdrop_path'],
                                   posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tvshows[index]['poster_path'],
-                                  vote:
-                                      tvshows[index]['vote_average'].toString(),
-                                  launch_on: tvshows[index]['release_date']
+                                      upcoming[index]['poster_path'],
+                                  vote: upcoming[index]['vote_average']
+                                      .toString(),
+                                  launch_on: upcoming[index]['release_date']
                                       .toString())));
                     },
                     child: Container(
@@ -57,20 +57,21 @@ class TV extends StatelessWidget {
                                 image: DecorationImage(
                                     image: NetworkImage(
                               'https://image.tmdb.org/t/p/w500' +
-                                  tvshows[index]['poster_path'],
+                                  upcoming[index]['poster_path'],
                             ))),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           Container(
-                              child: Text(
-                            tvshows[index]['original_name'] != null
-                                ? tvshows[index]['original_name']
-                                : 'loading...',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ))
+                            child: Text(
+                              upcoming[index]['title'] != null
+                                  ? upcoming[index]['title']
+                                  : 'loading...',
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500),
+                            ),
+                          )
                         ],
                       ),
                     ),

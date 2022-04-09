@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../pages/description.dart';
 
-class TV extends StatelessWidget {
-  final List tvshows;
-  const TV({
+class Toprated extends StatelessWidget {
+  final List toprated;
+  const Toprated({
     Key? key,
-    required this.tvshows,
+    required this.toprated,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class TV extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text(
-            'Popular TV shows 🎥',
+            'Top Rated ✨',
             style: TextStyle(
                 fontSize: 22.0,
                 color: Colors.white,
@@ -28,7 +28,7 @@ class TV extends StatelessWidget {
             height: 260,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: tvshows.length,
+                itemCount: toprated.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -36,15 +36,15 @@ class TV extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Description(
-                                  name: tvshows[index]['title'].toString(),
-                                  description: tvshows[index]['overview'],
+                                  name: toprated[index]['title'].toString(),
+                                  description: toprated[index]['overview'],
                                   bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tvshows[index]['backdrop_path'],
+                                      toprated[index]['backdrop_path'],
                                   posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tvshows[index]['poster_path'],
-                                  vote:
-                                      tvshows[index]['vote_average'].toString(),
-                                  launch_on: tvshows[index]['release_date']
+                                      toprated[index]['poster_path'],
+                                  vote: toprated[index]['vote_average']
+                                      .toString(),
+                                  launch_on: toprated[index]['release_date']
                                       .toString())));
                     },
                     child: Container(
@@ -57,20 +57,21 @@ class TV extends StatelessWidget {
                                 image: DecorationImage(
                                     image: NetworkImage(
                               'https://image.tmdb.org/t/p/w500' +
-                                  tvshows[index]['poster_path'],
+                                  toprated[index]['poster_path'],
                             ))),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           Container(
-                              child: Text(
-                            tvshows[index]['original_name'] != null
-                                ? tvshows[index]['original_name']
-                                : 'loading...',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ))
+                            child: Text(
+                              toprated[index]['title'] != null
+                                  ? toprated[index]['title']
+                                  : 'loading...',
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w500),
+                            ),
+                          )
                         ],
                       ),
                     ),
